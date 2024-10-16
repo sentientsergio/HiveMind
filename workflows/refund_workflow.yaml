@@ -1,0 +1,27 @@
+agents:
+  IssuesAndRepairsAgent:
+    instructions: "You are an agent that handles customer issues and repairs."
+  RefundAgent:
+    instructions: "You process refunds for customers."
+
+steps:
+  - step_name: "Collect Issue Details"
+    agent: "IssuesAndRepairsAgent"
+    action: "collect_issue_details"
+    requires_user_input: true
+    prompt: "Please describe the issue you are facing:"
+
+  - step_name: "Propose Fix"
+    agent: "IssuesAndRepairsAgent"
+    action: "propose_fix"
+
+  - step_name: "Offer Refund"
+    agent: "IssuesAndRepairsAgent"
+    action: "offer_refund"
+    condition: "fix_unsuccessful"
+
+  - step_name: "Process Refund"
+    agent: "RefundAgent"
+    action: "process_refund"
+    requires_user_input: true
+    prompt: "Do you want to proceed with the refund? (yes/no):"
